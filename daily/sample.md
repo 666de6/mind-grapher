@@ -1,20 +1,14 @@
-# MindGrapher
-MindGrapher is a fun program helps me visualize and track my mental health journey over time. 
-
-## About
-There're 10 statements in "How are you doing today?". Earn 1 point for each completed item.  Everyday you get a rating about yourself, and over time it automatically generates a visual chart showing "how have you been".
-
----
-#### How are you doing today?
+# How are you doing today?
 
 > This is a daily program written by the late Sibyl F.Partridge. I just read it from Dale Carnegie's book “How to Stop Worrying and Start Living”. Mental health is very important but it is often overlooked. I hope to remind myself how to live through daily self-check.
  
+<div id="starIcon"></div>
 
-- [ ] ***Just for today I will be happy***. This assumes that what Abraham Lincoln said is true, that “most folks are about as happy as they make up their minds to be”. Happiness is from within; it is not a matter of externals.
+- [x] ***Just for today I will be happy***. This assumes that what Abraham Lincoln said is true, that “most folks are about as happy as they make up their minds to be”. Happiness is from within; it is not a matter of externals.
 
-- [ ] ***Just for today I will try to adjust myself to what is, and not try to adjust to everything to my own desires***. I will take my family, my business, and my luck as they come and fit myself to them.
+- [x] ***Just for today I will try to adjust myself to what is, and not try to adjust to everything to my own desires***. I will take my family, my business, and my luck as they come and fit myself to them.
 
-- [ ] ***Just for today I will take care of my body, I will exercise it, care for it, nourish it, not abuse it nor neglect it***, so that it will be a perfect machine for my bidding.
+- [x] ***Just for today I will take care of my body, I will exercise it, care for it, nourish it, not abuse it nor neglect it***, so that it will be a perfect machine for my bidding.
 
 - [ ] ***Just for today I will try to strengthen my mind***. I will learn something useful. I will not be a mental loafer. I will read something that requires effort, thought and concentration.
 

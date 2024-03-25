@@ -1,0 +1,69 @@
+name: Daily Check
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  generate_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate new file
+        run: cp daily/sample.md daily/$(date +%Y-%m-%d).md
+  
+  calculate_previous_day:
+    runs-on: ubuntu-latest
+    needs: generate_file
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Calculate previous day's data
+        run: |
+          previous_date=$(date -d "yesterday" +%Y-%m-%d)
+          checked_count=$(grep -oP '\[x\]' "$previous_date.md" | wc -l)
+          star_icons=$(printf '⭐️%.0s' $(seq 1 $checked_count))
+          echo "$star_icons" > star_icons.txt
+          cat "$previous_date.md" | awk -v star_icons="$star_icons" 'BEGIN {print star_icons}{print}' > temp.md
+          mv temp.md "$previous_date.md"
+
+  update_record_list:
+    runs-on: ubuntu-latest
+    needs: generate_file
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update record list
+        run: |
+          date=$(date +%Y-%m-%d)
+          echo "$date: $(grep -oP '\[x\]' "$date.md" | wc -l)" >> record_list.txt
+
+  render_visual_chart:
+    runs-on: ubuntu-latest
+    needs: [generate_file, update_record_list]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install matplotlib
+
+      - name: Generate chart
+        run: python generate_chart.py
+
+      - name: Commit chart
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add chart.png
+          git commit -m "Add chart"
+          git push
