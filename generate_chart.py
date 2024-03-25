@@ -20,9 +20,9 @@ plt.figure(figsize=(10, 6))
 plt.plot(dates, counts, marker='o')
 plt.title('Mind Grapher')
 plt.xlabel('Date')
-plt.ylabel('Checked Count')
+plt.ylabel('Mind Rating')
 plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Save chart as PNG file
-plt.savefig('chart.png')
+plt.savefig('mind-grapher.png')
