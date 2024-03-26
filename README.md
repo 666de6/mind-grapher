@@ -1,5 +1,5 @@
 # MindGrapher
-MindGrapher is a fun program helps me visualize and track my mental health journey over time. 
+MindGrapher is a fun program helps me visualize and track my mental health journey over time. You can also customize your own mental health standards based on your own circumstances.
 
 ## About
 There're 10 statements in "How are you doing today?". Earn 1 point for each completed item.  Everyday you get a rating about yourself, and over time it automatically generates a visual chart showing "how have you been".

@@ -22,6 +22,7 @@ plt.title('Mind Grapher')
 plt.xlabel('Date')
 plt.ylabel('Mind Rating')
 plt.xticks(rotation=45)
+plt.ylim(0, 10)
 plt.tight_layout()
 
 # Save chart as PNG file
