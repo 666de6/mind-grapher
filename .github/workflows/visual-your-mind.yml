@@ -22,8 +22,8 @@ jobs:
 
       - name: Calculate previous day's data
         run: |
-          previous_date=$(date -v -1d "+%Y-%m-%d")
-          checked_count=$(grep -o '\[x\]' "daily/$previous_date.md" | wc -l)
+          previous_date=$(date -d "yesterday" +%Y-%m-%d)
+          checked_count=$(grep -oP '\[x\]' "daily/$previous_date.md" | wc -l)
           star_icons=$(printf '⭐️%.0s' $(seq 1 $checked_count))
           awk -v stars="$star_icons" '/^# How are you doing today\?$/ {print; print stars; next} 1' "daily/$previous_date.md" > "temp.md" && mv "temp.md" "daily/$previous_date.md"
 
@@ -36,8 +36,8 @@ jobs:
 
       - name: Update record list
         run: |
-          previous_date=$(date -v -1d "+%Y-%m-%d")
-          echo "$previous_date: $(grep -o '\[x\]' "daily/$previous_date.md" | wc -l)" >> record_list.txt
+          previous_date=$(date -d "yesterday" +%Y-%m-%d)
+          echo "$previous_date: $(grep -oP '\[x\]' "daily/$previous_date.md" | wc -l)" >> record_list.txt
 
   render_visual_chart:
     runs-on: ubuntu-latest
