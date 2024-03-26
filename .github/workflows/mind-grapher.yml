@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate_file:
+  daily_and_visual:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -16,17 +16,15 @@ jobs:
           cp ${GITHUB_WORKSPACE}/daily/sample.md ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md
           ls -al ${GITHUB_WORKSPACE}/daily
           
-      - name: Calculate previous day's data
+      - name: Calculate and record
         run: |
           previous_date=$(date -d "yesterday" +%Y-%m-%d)
           checked_count=$(grep -oP '\[x\]' "${GITHUB_WORKSPACE}/daily/$previous_date.md" | wc -l)
+          echo "$checked_count"
           star_icons=$(printf '⭐️%.0s' $(seq 1 $checked_count))
+          echo "$star_icons"
           awk -v stars="$star_icons" '/^# How are you doing today\?$/ {print; print stars; next} 1' "${GITHUB_WORKSPACE}/daily/$previous_date.md" > "temp.md" && mv "temp.md" "${GITHUB_WORKSPACE}/daily/$previous_date.md"
-
-      - name: Update record list
-        run: |
-          previous_date=$(date -d "yesterday" +%Y-%m-%d)
-          echo "$previous_date: $(grep -oP '\[x\]' "${GITHUB_WORKSPACE}/daily/$previous_date.md" | wc -l)" >> "${GITHUB_WORKSPACE}/record_list.txt"
+          echo "$previous_date: $checked_count" >> "${GITHUB_WORKSPACE}/record_list.txt"
 
       - name: Install Python
         uses: actions/setup-python@v4
