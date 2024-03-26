@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Generate new file
         run: cp daily/sample.md daily/$(date +%Y-%m-%d).md
@@ -19,7 +19,7 @@ jobs:
     needs: generate_file
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Calculate previous day's data
         run: |
@@ -33,7 +33,7 @@ jobs:
     needs: generate_file
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Update record list
         run: |
@@ -45,7 +45,7 @@ jobs:
     needs: [generate_file, update_record_list]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Python
         uses: actions/setup-python@v2
