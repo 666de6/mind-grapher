@@ -12,11 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate new file
-        run: |
-          echo "Current directory: $(pwd)"
-          ls -al ${GITHUB_WORKSPACE}/daily
-          echo "Destination file path: ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md"
-          cp ${GITHUB_WORKSPACE}/daily/sample.md ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md || echo "Failed to copy file"
+        run: cp ${GITHUB_WORKSPACE}/daily/sample.md ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md
           
   calculate_previous_day:
     runs-on: ubuntu-latest
@@ -28,9 +24,9 @@ jobs:
       - name: Calculate previous day's data
         run: |
           previous_date=$(date -d "yesterday" +%Y-%m-%d)
-          checked_count=$(grep -oP '\[x\]' "daily/$previous_date.md" | wc -l)
+          checked_count=$(grep -oP '\[x\]' "${GITHUB_WORKSPACE}/daily/$previous_date.md" | wc -l)
           star_icons=$(printf '⭐️%.0s' $(seq 1 $checked_count))
-          awk -v stars="$star_icons" '/^# How are you doing today\?$/ {print; print stars; next} 1' "daily/$previous_date.md" > "temp.md" && mv "temp.md" "daily/$previous_date.md"
+          awk -v stars="$star_icons" '/^# How are you doing today\?$/ {print; print stars; next} 1' "${GITHUB_WORKSPACE}/daily/$previous_date.md" > "temp.md" && mv "temp.md" "${GITHUB_WORKSPACE}/daily/$previous_date.md"
 
   update_record_list:
     runs-on: ubuntu-latest
@@ -42,7 +38,7 @@ jobs:
       - name: Update record list
         run: |
           previous_date=$(date -d "yesterday" +%Y-%m-%d)
-          echo "$previous_date: $(grep -oP '\[x\]' "daily/$previous_date.md" | wc -l)" >> "${GITHUB_WORKSPACE}/record_list.txt"
+          echo "$previous_date: $(grep -oP '\[x\]' "${GITHUB_WORKSPACE}/daily/$previous_date.md" | wc -l)" >> "${GITHUB_WORKSPACE}/record_list.txt"
 
   render_visual_chart:
     runs-on: ubuntu-latest
