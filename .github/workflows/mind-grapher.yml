@@ -14,7 +14,9 @@ jobs:
       - name: Generate new file
         run: |
           echo "Current directory: $(pwd)"
-          cp ${GITHUB_WORKSPACE}/daily/sample.md ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md
+          echo "Source file path: ${GITHUB_WORKSPACE}/daily/sample.md"
+          echo "Destination file path: ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md"
+          cp ${GITHUB_WORKSPACE}/daily/sample.md ${GITHUB_WORKSPACE}/daily/$(date -u '+%Y-%m-%d').md || echo "Failed to copy file"
           
   calculate_previous_day:
     runs-on: ubuntu-latest
