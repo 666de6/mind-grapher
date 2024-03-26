@@ -23,11 +23,10 @@ jobs:
           echo "$checked_count"
           star_icons=$(printf '⭐️%.0s' $(seq 1 $checked_count))
           echo "$star_icons"
-          awk -v stars="$star_icons" '/^# How are you doing today\?$/ {print; print stars; next} 1' "${GITHUB_WORKSPACE}/daily/$previous_date.md" > "temp.md" && mv "temp.md" "${GITHUB_WORKSPACE}/daily/$previous_date.md"
           echo "$previous_date: $checked_count" >> "${GITHUB_WORKSPACE}/record_list.txt"
 
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
