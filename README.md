@@ -8,7 +8,6 @@ There're 10 statements in "How are you doing today?". Earn 1 point for each comp
 
 ![my mind grapher](./mind-grapher.png)
 
----
 ## Template
 
 #### How are you doing today?
